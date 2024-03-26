@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/form.css">
+  <title>Form</title>
+  <style>
+    /* Add your additional styles here */
+  </style>
+</head>
+<body>
+
+  <form id="myForm" class="new-layout">
+    <h1>Validation Form</h1>
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <span class="error" id="nameError"></span>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email">
+      <span class="error" id="emailError"></span>
+    </div>
+
+    <div>
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" id="phoneNumber" name="phoneNumber">
+      <span class="error" id="phoneNumberError"></span>
+    </div>
+
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age">
+      <span class="error" id="ageError"></span>
+    </div>
+
+    <div>
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address">
+      <span class="error" id="addressError"></span>
+    </div>
+
+    <div>
+      <label for="zipcode">Zip Code:</label>
+      <input type="text" id="zipcode" name="zipcode">
+      <span class="error" id="zipcodeError"></span>
+    </div>
+
+    <div>
+      <label for="semester">Semester:</label>
+      <input type="text" id="semester" name="semester">
+      <span class="error" id="semesterError"></span>
+    </div>
+
+    <div>
+      <label for="cgpa">CGPA:</label>
+      <input type="text" id="cgpa" name="cgpa">
+      <span class="error" id="cgpaError"></span>
+    </div>
+
+    <div>
+      <label for="program">Program:</label>
+      <input type="text" id="program" name="program">
+      <span class="error" id="programError"></span>
+    </div>
+
+    <div>
+      <label for="university">University:</label>
+      <input type="text" id="university" name="university">
+      <span class="error" id="universityError"></span>
+    </div>
+
+    <button type="button" onclick="validateForm()">Submit</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const formInputs = document.querySelectorAll('input');
+  
+      formInputs.forEach(input => {
+        input.addEventListener('input', function () {
+          validateInput(this);
+        });
+      });
+  
+      const submitButton = document.querySelector('button[type="button"]');
+      submitButton.addEventListener('click', function () {
+        validateForm();
+      });
+    });
+  
+    function validateInput(input) {
+      const fieldName = input.name;
+      const value = input.value.trim();
+      clearError(fieldName);
+  
+      switch (fieldName) {
+        case 'name':
+          if (value === '') {
+            displayError(fieldName, 'Name cannot be empty');
+          } else if (/^\d/.test(value)) {
+            displayError(fieldName, 'Name cannot start with a number');
+          }
+          break;
+  
+        case 'email':
+          if (value === '') {
+            displayError(fieldName, 'Email cannot be empty');
+          } else {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+              displayError(fieldName, 'Invalid email address');
+            }
+          }
+          break;
+  
+        case 'phoneNumber':
+          if (value === '') {
+            displayError(fieldName, 'Phone number cannot be empty');
+          } else {
+            if (!/^\d{11}$/.test(value)) {
+              displayError(fieldName, 'Invalid phone number');
+            }
+          }
+          break;
+  
+        case 'age':
+          if (value === '') {
+            displayError(fieldName, 'Age cannot be empty');
+          } else {
+            if (isNaN(value) || value < 18  || value > 40) {
+              displayError(fieldName, 'Age must be between 18 - 40');
+            }
+          }
+          break;
+  
+        case 'address':
+          if (value === '') {
+            displayError(fieldName, 'Address cannot be empty');
+          } else if (/^\d+$/.test(value)) {
+            displayError(fieldName, 'Address cannot consist of only numbers');
+          } else {
+            if (value.length < 5) {
+              displayError(fieldName, 'Address must be at least 5 characters');
+            }
+          }
+          break;
+  
+        case 'zipcode':
+          if (value === '') {
+            displayError(fieldName, 'Zip code cannot be empty');
+          } else {
+            if (!/^\d{5}$/.test(value)) {
+              displayError(fieldName, 'Invalid zip code i-e must contain atleast 5 numbers.');
+            }
+          }
+          break;
+  
+        case 'semester':
+          if (value === '') {
+            displayError(fieldName, 'Semester cannot be empty');
+          } else {
+            if (!/^\d{8}/.test(value)) {
+              displayError(fieldName, 'Invalid! Enter Value from 1-8');
+            }
+          }
+          break;
+  
+        case 'cgpa':
+          if (value === '') {
+            displayError(fieldName, 'CGPA cannot be empty');
+          } else {
+            if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+              displayError(fieldName, 'Invalid CGPA');
+            }
+          }
+          break;
+  
+          case 'program':
+      if (value === '') {
+        displayError(fieldName, 'Program cannot be empty');
+      } else if (/^\d+$/.test(value)) {
+        displayError(fieldName, 'Program cannot consist of only numbers');
+      } else if (value.length < 3) {
+        displayError(fieldName, 'Program must be at least 3 characters');
+      }
+      break;
+  
+        case 'university':
+          if (value === '') {
+            displayError(fieldName, 'University cannot be empty');
+          }
+        else if (/^\d+$/.test(value)) {
+        displayError(fieldName, 'University Name cannot consist of only numbers');
+      }
+       else {
+            if (value.length < 3) {
+              displayError(fieldName, 'University must be at least 3 characters');
+            }
+          }
+          break;
+  
+        default:
+          break;
+      }
+    }
+  
+    function displayError(fieldName, errorMessage) {
+      document.getElementById(`${fieldName}Error`).textContent = errorMessage;
+    }
+  
+    function clearError(fieldName) {
+      document.getElementById(`${fieldName}Error`).textContent = '';
+    }
+  
+    function validateForm() {
+      const formInputs = document.querySelectorAll('input');
+      formInputs.forEach(input => validateInput(input));
+  
+      if (areErrorsPresent()) {
+        console.log('Form has errors. Please fix them.');
+      } else {
+        const formData = {
+          name: document.getElementById('name').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phoneNumber: document.getElementById('phoneNumber').value.trim(),
+          age: document.getElementById('age').value.trim(),
+          address: document.getElementById('address').value.trim(),
+          zipcode: document.getElementById('zipcode').value.trim(),
+          semester: document.getElementById('semester').value.trim(),
+          cgpa: document.getElementById('cgpa').value.trim(),
+          program: document.getElementById('program').value.trim(),
+          university: document.getElementById('university').value.trim(),
+        };
+        console.log('Form submitted:', formData);
+      }
+    }
+  
+    function areErrorsPresent() {
+      const errorElements = document.querySelectorAll('.error');
+      for (const errorElement of errorElements) {
+        if (errorElement.textContent !== '') {
+          return true;
+        }
+      }
+      return false;
+    }
+  </script>
+  
+  
+
+</body>
+</html>
