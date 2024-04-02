@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Images</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+    background-image: url('bg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(10px);
+    height: 100vh;
+    
+  }
+  
+
+  
+
+  h1 {
+    margin-top: 20px;
+    color: #333;
+  }
+
+  .button-container {
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    
+  }
+
+  .product {
+    margin: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .product p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+
+  /* Hidden class */
+  .hidden {
+    display: none;
+  }
+
+  /* Hourglass animation */
+  .hourglass {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #007bff;
+    border-radius: 50%;
+    border-top: 5px solid transparent;
+    animation: hourglass-spin 1s linear infinite;
+  }
+
+  @keyframes hourglass-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+</head>
+<body>
+  <h1 style="color: white;">آج کل ٹرینڈ ہو رہا ہے۔</h1>
+  <div class="button-container">
+    <button onclick="showImages()">Show</button>
+    <div id="loading" class="hidden"><div class="hourglass"></div></div>
+  </div>
+
+  <div id="images" class="product-container hidden">
+    <div class="product">
+      <img src="btc.jpg" alt="Product 1">
+      <p>قیمت: $10</p>
+      <p>دستیابی: اسٹاک میں</p>
+    </div>
+    <div class="product">
+      <img src="ethereum.png" alt="Product 2">
+      <p>قیمت: $15</p>
+      <p>دستیابی: اسٹاک میں</p>
+    </div>
+    <div class="product">
+        <img src="dodge.jpeg" alt="Product 2">
+        <p>قیمت: $15</p>
+        <p style="color: red;">دستیابی:دستیاب نہیں</p>
+      </div>
+      </div>
+
+  <script>
+    function showImages() {
+      var loadingDiv = document.getElementById('loading');
+      loadingDiv.classList.remove('hidden');
+      
+      setTimeout(function() {
+        var imagesDiv = document.getElementById('images');
+        imagesDiv.classList.remove('hidden');
+        loadingDiv.classList.add('hidden');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
